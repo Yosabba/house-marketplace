@@ -28,39 +28,36 @@ export default function Home() {
     if (isUserLoggedIn) {
       router.push("/explore");
     }
-  }, [isUserLoggedIn]);
+  }, [router, isUserLoggedIn]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const auth = getAuth();
 
-    toast.promise(
-      signInWithEmailAndPassword(auth, formData.email, formData.password),
-      {
-        pending: "loading...",
-        success: "Signed in",
-        error: "Incorrect email or password",
-      },
-      {
-        position: toast.POSITION.BOTTOM_CENTER,
-      }
-    );
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        console.log(userCredential);
-        setIsUserLoggedIn(true);
-      })
-      .then(() => {
-        setFormData({
-          email: "",
-          password: "",
-        });
-      })
-      .catch((error) => {
-        console.log(`${error.message}`);
+      toast.success("Signed in", {
+        position: toast.POSITION.BOTTOM_CENTER,
       });
+
+      setIsUserLoggedIn(true);
+
+      setFormData({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.log(`${error.message}`);
+      toast.error("Incorrect email or password", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
   };
 
   return (
@@ -71,7 +68,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ToastContainer pauseOnHover={false} transition={Zoom} />
+      <ToastContainer
+        pauseOnHover={false}
+        transition={Zoom}
+        hideProgressBar={true}
+      />
 
       <section className="flex mt-4 mb-4 flex-col items-center">
         <h1 className=" text-6xl font-semibold ">Welcome Back!</h1>

@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { db } from "../firebase.config";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Zoom } from "react-toastify";
@@ -28,37 +29,42 @@ export default function Home() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const auth = getAuth();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
-    toast.promise(
-      createUserWithEmailAndPassword(auth, formData.email, formData.password),
-      {
-        pending: "loading...",
-        success: "Signed up",
-        error: "An error occurred",
-      },
-      {
+      toast.success("Signed up", {
         position: toast.POSITION.BOTTOM_CENTER,
-      }
-    );
-
-    createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        updateProfile(auth, {
-          displayName: formData.name,
-        });
-      })
-      .then(() => {
-        setFormData({
-          email: "",
-          password: "",
-          name: "",
-        });
-      })
-      .catch((error) => {
-        console.log(`${error.message}`);
       });
+
+      const user = userCredential.user;
+
+      updateProfile(user, {
+        displayName: formData.name,
+      });
+
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+      
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+
+      setFormData({
+        email: "",
+        password: "",
+        name: "",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("An Error Occured", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
   };
 
   return (
@@ -69,7 +75,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ToastContainer pauseOnHover={false} transition={Zoom} />
+      <ToastContainer
+        pauseOnHover={false}
+        transition={Zoom}
+        hideProgressBar={true}
+      />
 
       <section className="flex mt-4 mb-4 flex-col items-center">
         <h1 className=" text-6xl font-semibold pb-4">Create an account</h1>
