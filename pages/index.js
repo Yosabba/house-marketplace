@@ -96,9 +96,11 @@ export default function Home() {
             value={formData.password}
             id="password"
           />
-          <span className="ml-60 pt-2 hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
-            Forgot Password?
-          </span>
+          <Link href={'/forgotPassword'}>
+            <span className="ml-60 pt-2 hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
+              Forgot Password?
+            </span>
+          </Link>
 
           <button className="mt-8 mb-4 bg-green-500 rounded-lg py-2 px-2 w-72 text-white hover:bg-green-400 transition duration-500">
             Sign in
