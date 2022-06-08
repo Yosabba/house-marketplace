@@ -59,6 +59,7 @@ export default function Home() {
         password: "",
         name: "",
       });
+      
     } catch (error) {
       console.log(error);
       toast.error("An Error Occured", {
