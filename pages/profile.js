@@ -24,8 +24,6 @@ export default function Profile() {
     router.push("/");
   };
 
-  console.log(auth.currentUser);
-
   return (
     <main className="py-4">
       <Head>
@@ -50,7 +48,7 @@ export default function Profile() {
       </section>
 
       <section>
-          <h1 className="text-xl font-light">{`Hello, ${auth.currentUser.displayName}`}</h1>
+          <h1 className="text-xl font-light">{`Hello, ${formData.name}`}</h1>
       </section>
     </main>
   );

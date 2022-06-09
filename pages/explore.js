@@ -13,7 +13,7 @@ export default function Explore() {
 
       <Nav />
 
-      <h1 className="text-6xl mb-12">Explore</h1>
+      <h1 className="text-6xl mb-12">House Listings</h1>
       <section className="grid grid-cols-auto-fit">
         {Array.from({ length: 10 }).map((_, i) => (
           <HouseListing key={i} />

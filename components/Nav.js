@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Nav = () => {
   return (
-    <header className="flex flex-row justify-evenly p-2 w-full left-0 bottom-0 fixed bg-white m-2 ">
+    <header className="flex flex-row justify-evenly p-2 w-full left-0 bottom-0 fixed bg-white  ">
       <Link href={"/explore"}>
         <div className="flex flex-col justify-center items-center cursor-pointer hover:bg-gray-200 rounded-lg p-2">
           <Image
