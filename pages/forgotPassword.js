@@ -5,6 +5,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Zoom } from "react-toastify";
+import Link from "next/link";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ export default function ForgotPassword() {
         transition={Zoom}
         hideProgressBar={true}
       />
-      <h1 className="text-4xl font-bold text-center my-7">Forgot Password ?</h1>
+      <h1 className="text-4xl font-bold text-center my-7">Forgot Password</h1>
 
       <section className="flex flex-col items-center justify-center">
         {/*  */}
@@ -60,12 +61,17 @@ export default function ForgotPassword() {
               onChange={onChange}
             />
           </div>
-          <div className="flex flex-col items-center py-8">
+          <div className="flex flex-col items-center py-4">
+            <Link href={'/'}>
+              <span className="ml-60 text-sm hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
+                Sign In
+              </span>
+            </Link>
             <button
-              className="bg-green-400 rounded-lg px-4 py-2 font-medium hover:bg-green-300 transition duration-500"
+              className="bg-green-400 rounded-lg px-4 py-2 mt-10 font-medium hover:bg-green-300 transition duration-500"
               type="submit"
             >
-              Reset Password
+              Send Reset Email
             </button>
           </div>
         </form>

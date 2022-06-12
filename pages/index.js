@@ -75,8 +75,7 @@ export default function Home() {
       />
 
       <section className="flex mt-4 mb-4 flex-col items-center">
-        <h1 className=" text-6xl font-semibold ">Welcome Back!</h1>
-        <br />
+        <h1 className=" text-6xl font-semibold mb-20">Welcome Back!</h1>
 
         <form onSubmit={onSubmit} className="flex flex-col items-center">
           <input
@@ -97,12 +96,12 @@ export default function Home() {
             id="password"
           />
           <Link href={'/forgotPassword'}>
-            <span className="ml-60 pt-2 hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
+            <span className="ml-40 text-sm pt-2 hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
               Forgot Password?
             </span>
           </Link>
 
-          <button className="mt-8 mb-4 bg-green-500 rounded-lg py-2 px-2 w-72 text-white hover:bg-green-400 transition duration-500">
+          <button className="mt-8 mb-8 bg-green-500 rounded-lg py-2 px-2 w-72 text-white hover:bg-green-400 transition duration-500">
             Sign in
           </button>
 
