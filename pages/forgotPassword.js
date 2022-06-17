@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +26,6 @@ export default function ForgotPassword() {
       toast.error("An Error Occurred", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
-      console.log(error.message);
     }
   };
 
@@ -62,7 +61,7 @@ export default function ForgotPassword() {
             />
           </div>
           <div className="flex flex-col items-center py-4">
-            <Link href={'/'}>
+            <Link href={"/"}>
               <span className="ml-60 text-sm hover:cursor-pointer text-gray-400 hover:text-green-400 transition duration-300">
                 Sign In
               </span>
